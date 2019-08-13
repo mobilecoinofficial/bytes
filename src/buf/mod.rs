@@ -22,9 +22,13 @@ mod from_buf;
 mod chain;
 mod into_buf;
 mod iter;
-mod reader;
 mod take;
 mod vec_deque;
+
+// When std::io::Reader etc. traits are not available, skip these
+#[cfg(feature = "std")]
+mod reader;
+#[cfg(feature = "std")]
 mod writer;
 
 pub use self::buf::Buf;
@@ -33,6 +37,8 @@ pub use self::from_buf::FromBuf;
 pub use self::chain::Chain;
 pub use self::into_buf::IntoBuf;
 pub use self::iter::IntoIter;
+#[cfg(feature = "std")]
 pub use self::reader::Reader;
 pub use self::take::Take;
+#[cfg(feature = "std")]
 pub use self::writer::Writer;
